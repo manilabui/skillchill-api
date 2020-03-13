@@ -3,7 +3,6 @@ from django.db import models
 
 class PostPage(models.Model):
     post = models.ForeignKey("Post", on_delete=models.CASCADE)
-    post_type = models.ForeignKey("PostType", on_delete=models.DO_NOTHING)
     content = models.CharField(max_length=128)
     caption = models.CharField(max_length=2000)
     page_num = models.IntegerField()
