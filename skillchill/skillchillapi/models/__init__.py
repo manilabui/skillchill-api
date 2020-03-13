@@ -1,3 +1,4 @@
+from .skillager import Skillager
 from .skill import Skill
 from .user_skill import UserSkill
 from .post import Post

@@ -3,7 +3,7 @@ from django.db import models
 
 class Skill(models.Model):
     name = models.CharField(max_length=128)
-    avatar = models.CharField(max_length=128)
+    avatar = models.ImageField(upload_to='skill_avatar', blank=True)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     class Meta:
