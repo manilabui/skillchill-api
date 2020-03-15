@@ -1,9 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 
 class UserSkill(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    skillager = models.ForeignKey("Skillager", on_delete=models.CASCADE)
     skill = models.ForeignKey("Skill", on_delete=models.CASCADE)
     is_moderator = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
