@@ -4,10 +4,10 @@ from django.db import models
 class PostPage(models.Model):
     post = models.ForeignKey("Post", on_delete=models.CASCADE)
     content = models.CharField(max_length=128)
-    caption = models.CharField(max_length=2000)
+    caption = models.CharField(max_length=2000, blank=True)
     page_num = models.IntegerField()
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
-    modified_at = models.DateTimeField(null=True)
+    modified_at = models.DateTimeField(blank=True)
 
     class Meta:
         ordering = ("page_num",)

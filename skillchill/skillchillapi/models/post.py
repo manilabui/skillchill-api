@@ -8,7 +8,7 @@ class Post(models.Model):
     post_type = models.ForeignKey("PostType", on_delete=models.DO_NOTHING)
     is_public = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
-    modified_at = models.DateTimeField(null=True)
+    modified_at = models.DateTimeField(blank=True)
 
     class Meta:
         ordering = ("created_at",)

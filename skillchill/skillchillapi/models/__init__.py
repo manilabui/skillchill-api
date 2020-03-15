@@ -4,3 +4,4 @@ from .post import Post
 from .post_page import PostPage
 from .post_type import PostType
 from .comment import Comment
+from .skillager import Skillager
