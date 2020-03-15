@@ -59,7 +59,7 @@ def register_user(request):
     )
 
     Skillager.objects.create(
-        avatar=req_body['profile_picture'],
+        avatar=req_body['avatar'],
         user=new_user
     )
 
