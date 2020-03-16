@@ -4,7 +4,8 @@
     "pk": 1,
     "fields": {
       "name": "powerlifting",
-      "avatar": "http://placeimg.com/200/200/any"
+      "avatar": "http://placeimg.com/200/200/any",
+      "created_at": "2020-02-24T15:07:23.961Z"
     }
   }
 ]
