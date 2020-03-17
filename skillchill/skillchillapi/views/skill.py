@@ -12,9 +12,6 @@ class SkillSerializer(serializers.HyperlinkedModelSerializer):
     Arguments:
         serializers
     """
-
-    # skillager = SkillagerSerializer(many=True)
-
     class Meta:
         model = Skill
         url = serializers.HyperlinkedIdentityField(
@@ -27,7 +24,6 @@ class SkillSerializer(serializers.HyperlinkedModelSerializer):
 
 class Skills(ViewSet):
     """Skills in Skillchill"""
-
     def create(self, request):
         """Handle POST operations
 
