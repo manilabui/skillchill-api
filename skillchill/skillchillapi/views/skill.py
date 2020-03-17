@@ -6,7 +6,7 @@ from skillchillapi.models import Skill
 
 
 # TODO: need to show the moderator + all members
-class SkillSerializer(serializers.HyperlinkedModelSerializer):
+class SkillsSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for skills
 
     Arguments:
@@ -35,7 +35,7 @@ class Skills(ViewSet):
         new_skill.avatar = request.data['avatar']
         new_skill.save()
 
-        serializer = SkillSerializer(
+        serializer = SkillsSerializer(
             new_skill,
             context={'request': request}
         )
@@ -50,7 +50,7 @@ class Skills(ViewSet):
         """
         try:
             skill = Skill.objects.get(pk=pk)
-            serializer = SkillSerializer(skill, context={'request': request})
+            serializer = SkillsSerializer(skill, context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
@@ -62,7 +62,7 @@ class Skills(ViewSet):
             Response -- JSON serialized list of skills
         """
         skills = Skill.objects.all()
-        serializer = SkillSerializer(
+        serializer = SkillsSerializer(
             skills,
             many=True,
             context={'request': request}
