@@ -16,6 +16,7 @@ class PostsSerializer(serializers.HyperlinkedModelSerializer):
     """
     skillager = SkillagersSerializer()
     skill = SkillsSerializer()
+    post_type = serializers.CharField(source='get_post_type_display')
 
     class Meta:
         model = Post
@@ -27,6 +28,9 @@ class PostsSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'skillager', 'skill', 'post_type',
                   'is_public', 'created_at', 'modified_at')
         depth = 2
+
+    def get_post_type(self,obj):
+        return obj.get_post_type_display()
 
 
 class Posts(ViewSet):
@@ -79,7 +83,6 @@ class Posts(ViewSet):
         )
         return Response(serializer.data)
 
-    # also need partial update for post + one for only the modified date bc of when post pages or captions are updated
     def partial_update(self, request, pk=None):
         """Handle PATCH requests for an post
 
@@ -87,8 +90,8 @@ class Posts(ViewSet):
             Response -- Empty body with 204 status code
         """
         post = Post.objects.get(pk=pk)
-        post.is_public = request.data["avatar"]
-        post.modified_at = datetime.now()
+        post.is_public = request.data["is_public"]
+        post.modified_at = request.data["modified_at"]
         post.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
