@@ -6,6 +6,7 @@ from skillchillapi.models import Post
 from .skillager import SkillagersSerializer
 from .skill import SkillsSerializer
 
+
 # TODO: need to show the moderator + all members
 class PostsSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for posts
