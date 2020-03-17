@@ -3,15 +3,19 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from skillchillapi.models import Post
-
+from .skillager import SkillagersSerializer
+from .skill import SkillsSerializer
 
 # TODO: need to show the moderator + all members
-class PostSerializer(serializers.HyperlinkedModelSerializer):
+class PostsSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for posts
 
     Arguments:
         serializers
     """
+
+    skillager = SkillagersSerializer()
+    skill = SkillsSerializer()
 
     class Meta:
         model = Post
@@ -37,10 +41,9 @@ class Posts(ViewSet):
         new_post = Post()
         new_post.skillager_id = request.auth.user.skillager.id
         new_post.skill_id = request.data['skill_id']
-
         new_post.save()
 
-        serializer = PostSerializer(
+        serializer = PostsSerializer(
             new_post,
             context={'request': request}
         )
@@ -55,7 +58,7 @@ class Posts(ViewSet):
         """
         try:
             post = Post.objects.get(pk=pk)
-            serializer = PostSerializer(post, context={'request': request})
+            serializer = PostsSerializer(post, context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
@@ -66,9 +69,9 @@ class Posts(ViewSet):
         Returns:
             Response -- JSON serialized list of posts
         """
-        posts = Posts.objects.all()
+        posts = Post.objects.all()
         serializer = PostsSerializer(
-            skills,
+            posts,
             many=True,
             context={'request': request}
         )
