@@ -22,7 +22,7 @@ class SkillSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
 
-        fields = ('id', 'name', 'avatar', 'created_at')
+        fields = ('id', 'url', 'name', 'avatar', 'created_at')
 
 
 class Skills(ViewSet):
