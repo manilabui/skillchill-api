@@ -19,7 +19,6 @@ class PostPagesSerializer(serializers.HyperlinkedModelSerializer):
         )
         fields = ('id', 'post', 'content', 'caption',
                   'page_num', 'created_at', 'modified_at')
-        depth = 2
 
 
 class PostPages(ViewSet):
@@ -43,7 +42,7 @@ class PostPages(ViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        """Handle GET requests for single post
+        """Handle GET requests for single post page
 
         Returns:
             Response -- JSON serialized post instance
@@ -56,7 +55,8 @@ class PostPages(ViewSet):
             return HttpResponseServerError(ex)
 
     def list(self, request):
-        """Handle GET requests to posts resource
+        """Handle GET requests to the post pages resource 
+        that grabs all the post pages associated with
 
         Returns:
             Response -- JSON serialized list of posts

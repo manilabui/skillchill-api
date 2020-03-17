@@ -24,7 +24,6 @@ class PostsSerializer(serializers.HyperlinkedModelSerializer):
             view_name='post',
             lookup_field='id'
         )
-
         fields = ('id', 'skillager', 'skill', 'post_type',
                   'is_public', 'created_at', 'modified_at')
         depth = 2
