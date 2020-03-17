@@ -14,7 +14,6 @@ class PostsSerializer(serializers.HyperlinkedModelSerializer):
     Arguments:
         serializers
     """
-
     skillager = SkillagersSerializer()
     skill = SkillsSerializer()
 
@@ -26,7 +25,7 @@ class PostsSerializer(serializers.HyperlinkedModelSerializer):
         )
 
         fields = ('id', 'skillager', 'skill', 'post_type',
-                  'is_public', 'avatar', 'created_at', 'modified_at')
+                  'is_public', 'created_at', 'modified_at')
         depth = 2
 
 
@@ -42,6 +41,8 @@ class Posts(ViewSet):
         new_post = Post()
         new_post.skillager_id = request.auth.user.skillager.id
         new_post.skill_id = request.data['skill_id']
+        new_post.post_type = request.data['post_type']
+        new_post.is_public = request.data['is_public']
         new_post.save()
 
         serializer = PostsSerializer(

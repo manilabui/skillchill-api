@@ -13,7 +13,7 @@ class Post(models.Model):
     post_type = models.CharField(max_length=1, choices=PostType.choices)
     is_public = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
-    modified_at = models.DateTimeField(blank=True)
+    modified_at = models.DateTimeField(null=True)
 
     class Meta:
         ordering = ("created_at",)
