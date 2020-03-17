@@ -40,6 +40,23 @@ class SkillagersSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'url', 'user', 'avatar')
 
 
+class Users(ViewSet):
+
+    def retrieve(self, request, pk=None):
+        """Handle GET requests for single user
+
+        Returns:
+            Response -- JSON serialized user instance
+        """
+        try:
+            user = User.objects.get(pk=pk)
+            serializer = UsersSerializer(
+                user, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
+
+
 class Skillagers(ViewSet):
     def retrieve(self, request, pk=None):
         """Handle GET requests for single skillager

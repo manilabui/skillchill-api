@@ -7,7 +7,7 @@ class PostPage(models.Model):
     caption = models.CharField(max_length=2000, blank=True)
     page_num = models.IntegerField()
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
-    modified_at = models.DateTimeField(blank=True)
+    modified_at = models.DateTimeField(null=True)
 
     class Meta:
         ordering = ("page_num",)

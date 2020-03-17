@@ -16,13 +16,15 @@ Including another URLconf
 from django.urls import include, path
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from skillchillapi.views import register_user, login_user, Posts, Skillagers, Skills
+from skillchillapi.views import register_user, login_user, Posts, PostPages, Skillagers, Skills, Users
 
 router = routers.DefaultRouter(trailing_slash=False)
 
 router.register(r'posts', Posts, 'post')
+router.register(r'postpages', PostPages, 'postpage')
 router.register(r'skillagers', Skillagers, 'skillager')
 router.register(r'skills', Skills, 'skill')
+router.register(r'users', Users, 'user')
 
 urlpatterns = [
     path('', include(router.urls)),
