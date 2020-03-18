@@ -27,6 +27,3 @@ media/
 *.pyc
 *.db
 *.pid
-
-# django migrations
-migrations
