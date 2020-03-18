@@ -27,7 +27,7 @@ class UserSkillsSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class UserSkills(ViewSet):
-    """Skills in Skillchill"""
+    """UserSkills in Skillchill"""
     def create(self, request):
         """Handle POST operations
 
@@ -59,21 +59,21 @@ class UserSkills(ViewSet):
             return HttpResponseServerError(ex)
 
     def list(self, request):
-        """Handle GET requests to the user skill pages resource 
+        """Handle GET requests to the user skill pages resource
         that grabs all the user skills associated with
 
         Returns:
             Response -- JSON serialized list of user skills
         """
-        skillager_id = self.request.query_params.get('skillager', None)
-        skill = self.request.query_params.get('skill', None)
+        skillager_id = self.request.query_params.get('skillager_id', None)
+        skill_id = self.request.query_params.get('skill_id', None)
         user_skills = UserSkill.objects.all()
 
         if skillager_id is not None:
             user_skills = user_skills.filter(skillager_id=skillager_id)
 
-        if skill is not None:
-            user_skills = user_skills.filter(skill=skill)
+        if skill_id is not None:
+            user_skills = user_skills.filter(skill_id=skill_id)
 
         serializer = UserSkillsSerializer(
             user_skills,
