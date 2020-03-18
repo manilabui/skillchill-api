@@ -27,7 +27,7 @@ class Comments(ViewSet):
         """Handle POST operations
 
         Returns:
-            Response -- JSON serialized postinstance
+            Response -- JSON serialized comment instance
         """
         new_comment = Comment()
         new_comment.skillager_id = request.auth.user.skillager.id
@@ -41,10 +41,10 @@ class Comments(ViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        """Handle GET requests for single post page
+        """Handle GET requests for single comment page
 
         Returns:
-            Response -- JSON serialized post instance
+            Response -- JSON serialized comment instance
         """
         try:
             comment = Comment.objects.get(pk=pk)
@@ -54,11 +54,11 @@ class Comments(ViewSet):
             return HttpResponseServerError(ex)
 
     def list(self, request):
-        """Handle GET requests to the post pages resource 
-        that grabs all the post pages associated with
+        """Handle GET requests to the comment pages resource 
+        that grabs all the comment pages associated with
 
         Returns:
-            Response -- JSON serialized list of posts
+            Response -- JSON serialized list of comments
         """
         post_id = self.request.query_params.get('post', None)
         comments = Comment.objects.filter(post__id=post_id)
@@ -70,7 +70,7 @@ class Comments(ViewSet):
         return Response(serializer.data)
 
     def partial_update(self, request, pk=None):
-        """Handle PATCH requests for an post
+        """Handle PATCH requests for an comment
 
         Returns:
             Response -- Empty body with 204 status code
@@ -83,7 +83,7 @@ class Comments(ViewSet):
         return Response(serializer.data)
 
     def destroy(self, request, pk=None):
-        """Handles DELETE requests for a single post
+        """Handles DELETE requests for a single comment
 
         Returns:
             Response -- 204, 404, or 500 status code
