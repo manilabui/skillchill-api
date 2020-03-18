@@ -34,7 +34,7 @@ class UserSkills(ViewSet):
         Returns:
             Response -- JSON serialized userskill instance
         """
-        new_user_skill= UserSkill()
+        new_user_skill = UserSkill()
         new_user_skill.skillager_id = request.auth.user.skillager.id
         new_user_skill.skill_id = request.data['skill_id']
         new_user_skill.is_moderator = request.data['is_moderator']
