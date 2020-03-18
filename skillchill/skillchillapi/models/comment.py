@@ -6,7 +6,7 @@ class Comment(models.Model):
     post = models.ForeignKey("Post", on_delete=models.CASCADE)
     content = models.CharField(max_length=2000)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
-    modified_at = models.DateTimeField(blank=True)
+    modified_at = models.DateTimeField(null=True)
 
     class Meta:
         ordering = ("created_at",)
