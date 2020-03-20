@@ -75,6 +75,18 @@ class Posts(ViewSet):
             Response -- JSON serialized list of posts
         """
         posts = Post.objects.all()
+        skillager_id = request.auth.user.skillager.id
+
+        # filter by posts of the logged in user
+        skillager = self.request.query_params.get('skillager', False)
+        if skillager == 'true':
+            posts = posts.filter(skillager__id=skillager_id)
+
+        # filter by skill
+        skill = self.request.query_params.get('skill', False)
+        if skill == 'true':
+            posts = posts.filter(skill__id=skill_id)
+
         serializer = PostsSerializer(
             posts,
             many=True,
