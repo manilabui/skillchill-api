@@ -3,9 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from skillchillapi.models import Post
-from .skillager import SkillagersSerializer
 from .skill import SkillsSerializer
-
 
 # TODO: need to show the moderator + all members
 class PostsSerializer(serializers.HyperlinkedModelSerializer):
@@ -14,7 +12,6 @@ class PostsSerializer(serializers.HyperlinkedModelSerializer):
     Arguments:
         serializers
     """
-    skillager = SkillagersSerializer()
     skill = SkillsSerializer()
     post_type = serializers.CharField(source='get_post_type_display')
 
@@ -24,8 +21,8 @@ class PostsSerializer(serializers.HyperlinkedModelSerializer):
             view_name='post',
             lookup_field='id'
         )
-        fields = ('id', 'skillager', 'skill', 'post_type',
-                  'is_public', 'created_at', 'modified_at')
+        fields = ('id', 'skill', 'post_type', 'is_public',
+                  'created_at', 'modified_at')
         depth = 2
 
     def get_post_type(self, obj):
