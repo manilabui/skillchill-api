@@ -18,8 +18,8 @@ class UsersSerializer(serializers.HyperlinkedModelSerializer):
             view_name='user',
             lookup_field='id'
         )
-        fields = ('id', 'username', 'last_name',
-                  'first_name', 'email', 'last_login')
+        fields = ('username', 'last_name', 'first_name',
+                  'email', 'last_login')
 
 
 class SkillagersSerializer(serializers.HyperlinkedModelSerializer):
@@ -77,7 +77,8 @@ class Skillagers(ViewSet):
         Returns:
             Response -- JSON serialized list of skillagers
         """
-        skillagers = Skillager.objects.filter(id=request.auth.user.skillager.id)
+        skillagers = Skillager.objects.filter(
+            id=request.auth.user.skillager.id)
         skillager = self.request.query_params.get('skillager', None)
 
         if skillager is not None:
