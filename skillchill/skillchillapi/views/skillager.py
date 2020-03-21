@@ -77,7 +77,7 @@ class Skillagers(ViewSet):
         Returns:
             Response -- JSON serialized list of skillagers
         """
-        skillagers = Skillager.objects.filter(id=request.auth.user.customer.id)
+        skillagers = Skillager.objects.filter(id=request.auth.user.skillager.id)
         skillager = self.request.query_params.get('skillager', None)
 
         if skillager is not None:
