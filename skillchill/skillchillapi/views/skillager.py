@@ -83,7 +83,7 @@ class Skillagers(ViewSet):
         if skillager is not None:
             skillagers = skillagers.filter(id=skillager)
 
-        serializer = SkillagerSerializer(
+        serializer = SkillagersSerializer(
             skillagers, many=True, context={'request': request})
 
         return Response(serializer.data)
