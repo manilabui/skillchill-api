@@ -6,7 +6,6 @@ from skillchillapi.models import Post
 from .skillager import SkillagersSerializer
 from .skill import SkillsSerializer
 
-
 # TODO: need to show the moderator + all members
 class PostsSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for posts
@@ -24,8 +23,8 @@ class PostsSerializer(serializers.HyperlinkedModelSerializer):
             view_name='post',
             lookup_field='id'
         )
-        fields = ('id', 'skillager', 'skill', 'post_type',
-                  'is_public', 'created_at', 'modified_at')
+        fields = ('id', 'skillager', 'skill', 'post_type', 'is_public',
+                  'created_at', 'modified_at')
         depth = 2
 
     def get_post_type(self, obj):
@@ -75,6 +74,18 @@ class Posts(ViewSet):
             Response -- JSON serialized list of posts
         """
         posts = Post.objects.all()
+        skillager_id = request.auth.user.skillager.id
+
+        skillager = self.request.query_params.get('skillager', None)
+        skill_id = self.request.query_params.get('skill', None)
+
+        # filter by posts of the logged in user
+        if skillager is not None:
+            posts = posts.filter(skillager__id=skillager_id)
+
+        if skill_id is not None:
+            posts = posts.filter(skill__id=skill_id)
+
         serializer = PostsSerializer(
             posts,
             many=True,

@@ -3,7 +3,6 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from skillchillapi.models import UserSkill
-from .skillager import SkillagersSerializer
 from .skill import SkillsSerializer
 
 
@@ -13,7 +12,6 @@ class UserSkillsSerializer(serializers.HyperlinkedModelSerializer):
     Arguments:
         serializers
     """
-    skillager = SkillagersSerializer()
     skill = SkillsSerializer()
 
     class Meta:
@@ -23,7 +21,7 @@ class UserSkillsSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         depth = 2
-        fields = ('id', 'skillager', 'skill', 'is_moderator')
+        fields = ('skill', 'is_moderator')
 
 
 class UserSkills(ViewSet):
@@ -65,15 +63,8 @@ class UserSkills(ViewSet):
         Returns:
             Response -- JSON serialized list of user skills
         """
-        skillager_id = self.request.query_params.get('skillager_id', None)
-        skill_id = self.request.query_params.get('skill_id', None)
-        user_skills = UserSkill.objects.all()
-
-        if skillager_id is not None:
-            user_skills = user_skills.filter(skillager_id=skillager_id)
-
-        if skill_id is not None:
-            user_skills = user_skills.filter(skill_id=skill_id)
+        skillager_id = request.auth.user.skillager.id
+        user_skills = UserSkill.objects.filter(skillager_id=skillager_id)
 
         serializer = UserSkillsSerializer(
             user_skills,
