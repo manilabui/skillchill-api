@@ -4,9 +4,9 @@ from django.db import models
 class Post(models.Model):
     class PostType(models.TextChoices):
         PHOTO = 'P'
-        TEXT = 'T'
         VIDEO = 'V'
-        LINK = 'L'
+        # TEXT = 'T'
+        # LINK = 'L'
 
     skillager = models.ForeignKey("Skillager", on_delete=models.CASCADE)
     skill = models.ForeignKey("Skill", on_delete=models.DO_NOTHING)

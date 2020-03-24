@@ -2,7 +2,14 @@ from django.db import models
 
 
 class PostPage(models.Model):
+    class PostType(models.TextChoices):
+        PHOTO = 'P'
+        VIDEO = 'V'
+        # TEXT = 'T'
+        # LINK = 'L'
+
     post = models.ForeignKey("Post", on_delete=models.CASCADE)
+    post_type = models.CharField(max_length=1, choices=PostType.choices)
     content = models.CharField(max_length=128)
     caption = models.CharField(max_length=2000, blank=True)
     page_num = models.IntegerField()
