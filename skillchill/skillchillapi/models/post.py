@@ -11,7 +11,7 @@ class Post(models.Model):
     skillager = models.ForeignKey("Skillager", on_delete=models.CASCADE)
     skill = models.ForeignKey("Skill", on_delete=models.DO_NOTHING)
     post_type = models.CharField(max_length=1, choices=PostType.choices)
-    is_public = models.BooleanField(default=True)
+    is_public = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     modified_at = models.DateTimeField(null=True)
 
