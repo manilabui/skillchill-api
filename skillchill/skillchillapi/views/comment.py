@@ -3,6 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from skillchillapi.models import Comment
+from .skillager import SkillagersSerializer
 
 
 class CommentsSerializer(serializers.HyperlinkedModelSerializer):
@@ -11,6 +12,8 @@ class CommentsSerializer(serializers.HyperlinkedModelSerializer):
     Arguments:
         serializers
     """
+    skillager = SkillagersSerializer()
+
     class Meta:
         model = Comment
         url = serializers.HyperlinkedIdentityField(
